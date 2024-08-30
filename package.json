@@ -5,7 +5,10 @@
   "description": "A simple TailwindCSS Vue WYSIWYG editor.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cn-2k/vue-tailwind-wysiwyg-editor.git"
+    "url": "git+https://github.com/casual-cloud/vue-tailwind-wysiwyg-editor.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/casual-cloud"
   },
   "keywords": [
     "vue3",
@@ -25,7 +28,6 @@
     "README.md",
     "global.d.ts"
   ],
-  "private": false,
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -35,6 +37,7 @@
     "type-check": "vue-tsc --build --force"
   },
   "peerDependencies": {
+    "@tailwindcss/typography": "^0.5.13",
     "@tiptap/extension-document": "^2.3.0",
     "@tiptap/extension-floating-menu": "^2.3.0",
     "@tiptap/extension-placeholder": "^2.3.0",
@@ -45,7 +48,6 @@
     "@tiptap/pm": "^2.3.0",
     "@tiptap/starter-kit": "^2.3.0",
     "@tiptap/vue-3": "^2.3.0",
-    "@tailwindcss/typography": "^0.5.13",
     "vue": "^3.3.10"
   },
   "devDependencies": {
@@ -53,11 +55,12 @@
     "@types/node": "^18.19.32",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vue/tsconfig": "^0.5.1",
+    "@vue/typescript-plugin": "^2.1.2",
     "npm-run-all2": "^6.1.2",
     "typescript": "~5.4.5",
     "vite": "^5.2.11",
-    "vite-plugin-dts": "^3.9.1",
-    "vue-tsc": "^2.0.16"
+    "vite-plugin-dts": "^4.0.3",
+    "vue-tsc": "^2.1.2"
   },
   "dependencies": {
     "@vueuse/core": "^10.9.0"

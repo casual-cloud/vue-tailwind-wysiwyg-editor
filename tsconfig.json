@@ -30,6 +30,9 @@
       ],
       "vue-tailwind-lightbox/*": [
         "./src/*"
+      ],
+      "vue/dist/__globalTypes_3.4_false": [
+        "node_modules/vue/dist/__globalTypes_3.4_false.d.ts"
       ]
     }
   },
