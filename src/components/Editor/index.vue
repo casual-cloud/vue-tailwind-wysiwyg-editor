@@ -14,14 +14,16 @@
       <hr class="w-full h-[1px]">
     </div>
 
-    <div class="overflow-y-auto" :style="{ height: 'calc(100% - 46px)' }"><editor-content :editor="editor" /></div>
+    <div class="overflow-y-auto" :style="{ height: 'calc(100% - 46px)' }">
+      <editor-content :editor="editor" />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import Toolbar from "./Toolbar/index.vue";
 import ButtonTemplate from "./Buttons/ButtonTemplate.vue";
-import { onBeforeUnmount, watchEffect, type Component } from "vue";
+import { onBeforeUnmount, watch, type Component } from "vue";
 import { useEditor, EditorContent } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
 import Document from "@tiptap/extension-document";
@@ -39,18 +41,21 @@ const props = withDefaults(defineProps<{
   editorBackground?: string,
   placeholder?: string,
   keys?: Partial<ITranslationsProps>,
+  modelValue?: string,
 }>(), {
   width: '700',
   height: '400',
   //@ts-ignore
   keys: defaultTranslations,
+  modelValue: '',
 })
 
 const emit = defineEmits<{
-  (e: 'getHtml', html: string): void
+  (e: 'update:modelValue', html: string): void
 }>()
 
 const editor = useEditor({
+  content: props.modelValue,
   extensions: [
     StarterKit.configure({
       document: false,
@@ -72,6 +77,9 @@ const editor = useEditor({
     },
   },
   editable: true,
+  onUpdate: () => {
+    emit('update:modelValue', editor.value?.getHTML() || '')
+  }
 });
 
 type MenuItem = {
@@ -197,11 +205,13 @@ const items: MenuItem[] = [
   },
 ];
 
-watchEffect(() => {
-  if (editor.value) {
-    emit("getHtml", editor.value.getHTML());
+watch(() => props.modelValue, (value) => {
+  if (editor.value?.getHTML() === value) {
+    return
   }
-});
+
+  editor.value?.commands?.setContent(value, false)
+})
 
 onBeforeUnmount(() => {
   editor.value?.destroy();
